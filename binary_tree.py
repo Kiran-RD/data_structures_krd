@@ -20,6 +20,17 @@ class BinaryTree:
             self.post_order_traversal_recur(root.right)
             print(root.data)
 
+    def level_order_traversal_iter(self, root):
+        queue = []
+        queue.append(root)
+        while queue:
+            node = queue.pop(0)
+            print(node.data, end=' ')
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
     def height_of_tree_recur(self, root):
         if root is None:
             return 0
