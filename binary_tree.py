@@ -39,7 +39,25 @@ class BinaryTree:
         else:
             return max(self.height_of_tree_recur(root.left), self.height_of_tree_recur(root.right)) + 1
 
+    def topView(self, root):
+    q = [root]
+    top_map = {}
+    root.level = 0
+    while q:
+        node = q.pop(0)
+        if node.level not in top_map:
+            top_map[node.level] = node.info
+        if node.left:
+            node.left.level = node.level - 1
+            q.append(node.left)
+        if node.right:
+            node.right.level = node.level +1
+            q.append(node.right)
+        
+    for i in sorted(top_map.keys()):
+        print(top_map[i], end=' ')
 
+        
 class Node:
     def __init__(self, data, left, right):
         self.data = data
