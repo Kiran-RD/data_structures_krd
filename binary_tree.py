@@ -56,7 +56,26 @@ class BinaryTree:
         
     for i in sorted(top_map.keys()):
         print(top_map[i], end=' ')
-
+    
+    def insert(self, val):
+        if not self.root:
+            self.root = Node(val, None, None)
+        else:
+            node = self.root
+            while True:
+                if val > node.info:
+                    if node.right is None:
+                        node.right = Node(val, None, None)
+                        break
+                    else:
+                        node = node.right
+                else:
+                    if node.left is None:
+                        node.left = Node(val, None, None)
+                        break
+                    else:
+                        node = node.left
+        return self.root
         
 class Node:
     def __init__(self, data, left, right):
