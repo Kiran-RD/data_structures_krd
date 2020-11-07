@@ -40,22 +40,22 @@ class BinaryTree:
             return max(self.height_of_tree_recur(root.left), self.height_of_tree_recur(root.right)) + 1
 
     def topView(self, root):
-    q = [root]
-    top_map = {}
-    root.level = 0
-    while q:
-        node = q.pop(0)
-        if node.level not in top_map:
-            top_map[node.level] = node.info
-        if node.left:
-            node.left.level = node.level - 1
-            q.append(node.left)
-        if node.right:
-            node.right.level = node.level +1
-            q.append(node.right)
-        
-    for i in sorted(top_map.keys()):
-        print(top_map[i], end=' ')
+        q = [root]
+        top_map = {}
+        root.level = 0
+        while q:
+            node = q.pop(0)
+            if node.level not in top_map:
+                top_map[node.level] = node.info
+            if node.left:
+                node.left.level = node.level - 1
+                q.append(node.left)
+            if node.right:
+                node.right.level = node.level +1
+                q.append(node.right)
+
+        for i in sorted(top_map.keys()):
+            print(top_map[i], end=' ')
     
     def insert(self, val):
         if not self.root:
@@ -76,6 +76,30 @@ class BinaryTree:
                     else:
                         node = node.left
         return self.root
+    
+    def lca(root, v1, v2):
+        #Enter your code here
+        v1_lst = []
+        v2_lst = []
+        for i,j in zip([v1,v2],[v1_lst, v2_lst]):
+            node = root
+            while True:
+                j.append(node)
+                if i == node.info:
+                    break
+                if i > node.info:
+                    node = node.right
+                else:
+                    node = node.left
+        n = min(len(v1_lst),len(v2_lst))
+        for i in range(n):
+            if v1_lst[i].info != v2_lst[i].info:
+                if i > 0:
+                    return v1_lst[i-1]
+                else:
+                    return v1_lst[i]
+        else: return v1_lst[i]
+
         
 class Node:
     def __init__(self, data, left, right):
